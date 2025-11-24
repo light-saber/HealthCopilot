@@ -1,0 +1,28 @@
+{
+    "name": "health-copilot",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Local-first health dashboard integrating Ultrahuman Ring data with AI-powered insights",
+    "workspaces": [
+        "apps/dashboard",
+        "apps/orchestrator",
+        "infra/mcp"
+    ],
+    "scripts": {
+        "dev:mcp:ultrahuman": "npm run dev --workspace=infra/mcp -- ultrahuman",
+        "dev:orchestrator": "npm run dev --workspace=apps/orchestrator",
+        "dev:dashboard": "npm run dev --workspace=apps/dashboard",
+        "dev:all": "concurrently -n \"backend,frontend\" -c \"yellow,green\" \"npm run dev:orchestrator\" \"npm run dev:dashboard\"",
+        "build": "npm run build --workspaces",
+        "test": "npm run test --workspaces",
+        "clean": "npm run clean --workspaces && rm -rf node_modules"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "typescript": "^5.3.3"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    }
+}
