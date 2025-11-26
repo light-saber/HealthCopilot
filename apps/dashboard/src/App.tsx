@@ -30,18 +30,18 @@ function App() {
                     width: 280,
                     breakpoint: 'sm',
                 }}
-                styles={(theme) => ({
+                styles={{
                     main: {
-                        backgroundColor: theme.colors.dark[8],
+                        backgroundColor: '#0f1116',
                         minHeight: '100vh',
                         paddingTop: 'calc(var(--app-shell-header-offset, 0px) + 20px)',
                     },
                     navbar: {
-                        backgroundColor: 'rgba(11, 17, 32, 0.85)', // Semi-transparent dark
+                        backgroundColor: '#0f1116',
                         backdropFilter: 'blur(16px)',
-                        borderRight: '1px solid rgba(255, 255, 255, 0.06)',
+                        borderRight: '1px solid rgba(255, 255, 255, 0.1)',
                     },
-                })}
+                }}
             >
                 <AppShell.Navbar p="md">
                     <Group mb={40} px="xs">
@@ -76,10 +76,14 @@ function App() {
                                     padding: '14px 20px',
                                     borderRadius: '12px',
                                     textDecoration: 'none',
-                                    color: isActive ? '#fff' : '#909296',
-                                    backgroundColor: isActive ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
+                                    color: isActive ? '#22d3ee' : '#9ca3af',
+                                    backgroundColor: isActive
+                                        ? 'rgba(34, 211, 238, 0.1)'
+                                        : 'transparent',
                                     fontWeight: isActive ? 600 : 500,
-                                    border: isActive ? '1px solid rgba(6, 182, 212, 0.2)' : '1px solid transparent',
+                                    border: isActive
+                                        ? '1px solid rgba(34, 211, 238, 0.2)'
+                                        : '1px solid transparent',
                                     transition: 'all 0.2s ease',
                                     fontFamily: 'Outfit, sans-serif',
                                 })}

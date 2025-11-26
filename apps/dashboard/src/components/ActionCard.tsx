@@ -35,7 +35,7 @@ export function ActionCard({ action, status = 'none', onStatusChange }: ActionCa
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Card padding="lg" radius="md" withBorder>
+        <Card padding="lg" radius="md">
             <Stack spacing="sm">
                 <Group position="apart">
                     <Badge color={categoryColors[action.category] || 'gray'} variant="light">

@@ -8,6 +8,7 @@ import {
     Loader,
     Alert,
     Text,
+    Group,
 } from '@mantine/core';
 import { IconAlertCircle, IconSparkles } from '@tabler/icons-react';
 import { healthApi } from '../services/api';
@@ -17,9 +18,10 @@ import { TrendChart } from '../components/TrendChart';
 import { ActionCard } from '../components/ActionCard';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
+
 export function Overview() {
     const [overview, setOverview] = useState<any>(null);
-    const [actions, setActions] = useState<any[]>([]);
+    const [actions, setActions] = useLocalStorage<any[]>('health-copilot-actions', []);
     const [loading, setLoading] = useState(true);
     const [actionsLoading, setActionsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -89,7 +91,43 @@ export function Overview() {
     return (
         <Container size="xl" py="xl">
             <Stack spacing="xl">
-                <Title order={1}>Health Overview</Title>
+                <Group justify="space-between" align="center">
+                    <Title order={1}>Health Overview</Title>
+                </Group>
+
+                {/* Research-backed Actions */}
+                <Stack spacing="md">
+                    <Title order={2}>Research-Backed Actions</Title>
+
+                    {actions.length === 0 ? (
+                        <Button
+                            leftIcon={<IconSparkles size={20} />}
+                            size="lg"
+                            onClick={generateActions}
+                            loading={actionsLoading}
+                        >
+                            Generate Today's Plan
+                        </Button>
+                    ) : (
+                        <Stack spacing="md">
+                            {actions.map((action) => (
+                                <ActionCard
+                                    key={action.id}
+                                    action={action}
+                                    status={actionStatuses[action.id] || 'none'}
+                                    onStatusChange={(status) => handleStatusChange(action.id, status)}
+                                />
+                            ))}
+                            <Button
+                                variant="light"
+                                onClick={generateActions}
+                                loading={actionsLoading}
+                            >
+                                Regenerate Plan
+                            </Button>
+                        </Stack>
+                    )}
+                </Stack>
 
                 {/* Recovery Score Hero */}
                 <RecoveryScore score={today.recovery.readinessScore} />
@@ -154,39 +192,7 @@ export function Overview() {
                     </Grid.Col>
                 </Grid>
 
-                {/* Research-backed Actions */}
-                <Stack spacing="md">
-                    <Title order={2}>Research-Backed Actions</Title>
 
-                    {actions.length === 0 ? (
-                        <Button
-                            leftIcon={<IconSparkles size={20} />}
-                            size="lg"
-                            onClick={generateActions}
-                            loading={actionsLoading}
-                        >
-                            Generate Today's Plan
-                        </Button>
-                    ) : (
-                        <Stack spacing="md">
-                            {actions.map((action) => (
-                                <ActionCard
-                                    key={action.id}
-                                    action={action}
-                                    status={actionStatuses[action.id] || 'none'}
-                                    onStatusChange={(status) => handleStatusChange(action.id, status)}
-                                />
-                            ))}
-                            <Button
-                                variant="light"
-                                onClick={generateActions}
-                                loading={actionsLoading}
-                            >
-                                Regenerate Plan
-                            </Button>
-                        </Stack>
-                    )}
-                </Stack>
             </Stack>
         </Container>
     );

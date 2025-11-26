@@ -45,6 +45,11 @@ export function TrendChart({
                             dataKey="date"
                             stroke="rgba(255,255,255,0.5)"
                             tick={{ fill: 'rgba(255,255,255,0.7)' }}
+                            tickFormatter={(value) => {
+                                const date = new Date(value);
+                                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                            }}
+                            interval={0}
                         />
                         <YAxis
                             stroke="rgba(255,255,255,0.5)"
@@ -78,6 +83,11 @@ export function TrendChart({
                             dataKey="date"
                             stroke="rgba(255,255,255,0.5)"
                             tick={{ fill: 'rgba(255,255,255,0.7)' }}
+                            tickFormatter={(value) => {
+                                const date = new Date(value);
+                                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                            }}
+                            interval={0}
                         />
                         <YAxis
                             stroke="rgba(255,255,255,0.5)"
