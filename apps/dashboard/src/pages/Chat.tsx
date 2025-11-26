@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { IconSend, IconRobot, IconUser, IconAlertCircle } from '@tabler/icons-react';
 import { chatApi } from '../services/api';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useSessionStorage } from '../hooks/useSessionStorage';
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
@@ -24,7 +24,7 @@ interface Message {
 }
 
 export function Chat() {
-    const [messages, setMessages] = useLocalStorage<Message[]>('chat-history', []);
+    const [messages, setMessages] = useSessionStorage<Message[]>('health-copilot-chat-history', []);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [chatStatus, setChatStatus] = useState<any>(null);
