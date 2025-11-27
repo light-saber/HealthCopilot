@@ -90,18 +90,18 @@ export function Overview() {
 
     return (
         <Container size="xl" py="xl">
-            <Stack spacing="xl">
+            <Stack gap="xl">
                 <Group justify="space-between" align="center">
                     <Title order={1}>Health Overview</Title>
                 </Group>
 
                 {/* Research-backed Actions */}
-                <Stack spacing="md">
+                <Stack gap="md">
                     <Title order={2}>Research-Backed Actions</Title>
 
                     {actions.length === 0 ? (
                         <Button
-                            leftIcon={<IconSparkles size={20} />}
+                            leftSection={<IconSparkles size={20} />}
                             size="lg"
                             onClick={generateActions}
                             loading={actionsLoading}
@@ -109,12 +109,12 @@ export function Overview() {
                             Generate Today's Plan
                         </Button>
                     ) : (
-                        <Stack spacing="md">
+                        <Stack gap="md">
                             {actions.map((action) => (
                                 <ActionCard
                                     key={action.id}
                                     action={action}
-                                    status={actionStatuses[action.id] || 'none'}
+                                    status={(actionStatuses[action.id] as any) || 'none'}
                                     onStatusChange={(status) => handleStatusChange(action.id, status)}
                                 />
                             ))}
@@ -134,7 +134,7 @@ export function Overview() {
 
                 {/* Metrics Grid */}
                 <Grid>
-                    <Grid.Col span={6} md={3}>
+                    <Grid.Col span={{ base: 12, sm: 6, md: 3 }}>
                         <MetricCard
                             title="Sleep Duration"
                             value={today.sleep.duration.toFixed(1)}
@@ -147,7 +147,7 @@ export function Overview() {
                             sparklineData={trends.sleep7Day.map((d: any) => ({ value: d.value }))}
                         />
                     </Grid.Col>
-                    <Grid.Col span={6} md={3}>
+                    <Grid.Col span={{ base: 12, sm: 6, md: 3 }}>
                         <MetricCard
                             title="HRV"
                             value={today.recovery.hrvScore}
@@ -155,7 +155,7 @@ export function Overview() {
                             sparklineData={trends.hrv7Day.map((d: any) => ({ value: d.value }))}
                         />
                     </Grid.Col>
-                    <Grid.Col span={6} md={3}>
+                    <Grid.Col span={{ base: 12, sm: 6, md: 3 }}>
                         <MetricCard
                             title="Resting Heart Rate"
                             value={today.recovery.restingHeartRate}
@@ -163,7 +163,7 @@ export function Overview() {
                             status="good"
                         />
                     </Grid.Col>
-                    <Grid.Col span={6} md={3}>
+                    <Grid.Col span={{ base: 12, sm: 6, md: 3 }}>
                         <MetricCard
                             title="Steps"
                             value={today.activity.steps.toLocaleString()}
@@ -174,14 +174,14 @@ export function Overview() {
 
                 {/* Trend Charts */}
                 <Grid>
-                    <Grid.Col span={12} md={6}>
+                    <Grid.Col span={{ base: 12, md: 6 }}>
                         <TrendChart
                             title="Sleep Score (14 days)"
                             data={trends.sleep7Day}
                             dataKeys={[{ key: 'value', color: '#4fc3f7', name: 'Sleep Score' }]}
                         />
                     </Grid.Col>
-                    <Grid.Col span={12} md={6}>
+                    <Grid.Col span={{ base: 12, md: 6 }}>
                         <TrendChart
                             title="HRV & RHR Trend"
                             data={trends.hrv7Day}

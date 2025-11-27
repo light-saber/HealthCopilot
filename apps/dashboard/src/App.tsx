@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import { AppShell, Stack, Group, ThemeIcon, Text, Box } from '@mantine/core';
+import { AppShell, Stack, Group, ThemeIcon, Text, Box, Burger } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import {
     IconHome,
     IconMoon,
@@ -22,13 +23,22 @@ const navItems = [
 ];
 
 function App() {
+    const [opened, { toggle, close }] = useDisclosure();
+
     return (
         <BrowserRouter>
             <AppShell
                 padding="md"
+                header={{ height: 60, collapsed: !opened && true }} // Only show header on mobile/when needed? No, usually header is always visible on mobile.
+                // Actually, for this design, we want the header VISIBLE on mobile (to show burger) and HIDDEN on desktop (since we have sidebar).
+                // Mantine AppShell header collapsed prop: "If set to true, header will be hidden".
+                // We want hiddenFrom="sm". But AppShell header config doesn't take hiddenFrom directly in the object usually, 
+                // but the AppShell.Header component does.
+                // Let's configure the layout first.
                 navbar={{
                     width: 280,
                     breakpoint: 'sm',
+                    collapsed: { mobile: !opened },
                 }}
                 styles={{
                     main: {
@@ -41,10 +51,33 @@ function App() {
                         backdropFilter: 'blur(16px)',
                         borderRight: '1px solid rgba(255, 255, 255, 0.1)',
                     },
+                    header: {
+                        backgroundColor: '#0f1116',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                    }
                 }}
             >
+                <AppShell.Header hiddenFrom="sm" px="md">
+                    <Group h="100%" align="center">
+                        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" color="white" />
+                        <Group gap="xs">
+                            <ThemeIcon
+                                size={28}
+                                radius="xl"
+                                variant="gradient"
+                                gradient={{ from: 'cyan', to: 'blue' }}
+                            >
+                                <IconHeart size={16} stroke={2.5} />
+                            </ThemeIcon>
+                            <Text size="lg" fw={700} style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                Health Copilot
+                            </Text>
+                        </Group>
+                    </Group>
+                </AppShell.Header>
+
                 <AppShell.Navbar p="md">
-                    <Group mb={40} px="xs">
+                    <Group mb={40} px="xs" visibleFrom="sm">
                         <ThemeIcon
                             size={42}
                             radius="xl"
@@ -69,6 +102,7 @@ function App() {
                             <NavLink
                                 key={item.path}
                                 to={item.path}
+                                onClick={close}
                                 style={({ isActive }) => ({
                                     display: 'flex',
                                     alignItems: 'center',
