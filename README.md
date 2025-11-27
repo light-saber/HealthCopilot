@@ -52,6 +52,34 @@ health-copilot/
 - **Backend**: Node.js, Express, TypeScript
 - **Integration**: Direct HTTP API for Ultrahuman
 - **AI**: Google Gemini for health chat and insights
+- **MCP**: Chrome DevTools Server for browser automation and testing
+
+## Chrome DevTools MCP Integration
+
+This project integrates with the **Chrome DevTools Model Context Protocol (MCP)** server. This allows the Health Copilot agent to:
+- Inspect and control a running Chrome browser instance.
+- Automate UI testing and verification.
+- Debug the application state directly from the agent.
+
+### Testing with MCP
+
+To test the agent's ability to control the browser (e.g., generating a plan):
+
+1. **Start Chrome with Remote Debugging**:
+   Ensure Chrome is running with remote debugging enabled.
+   ```bash
+   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+   ```
+
+2. **Run the Test Script**:
+   ```bash
+   npx tsx apps/orchestrator/test-plan-gen.ts
+   ```
+   This script will:
+   - Connect to the MCP server.
+   - Navigate to the dashboard.
+   - Click "Generate Today's Plan".
+   - Verify the plan generation.
 
 ## Prerequisites
 

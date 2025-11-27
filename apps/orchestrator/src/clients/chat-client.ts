@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { logger } from '../utils/logger.js';
 import { ChatMessage, MetricsSummary } from '../types/health.js';
 import { ultrahumanClient } from './ultrahuman-client.js';
+import { mcpClient } from './mcp-client.js';
 
 /**
  * AI Chat Client supporting both OpenAI and Gemini
@@ -53,7 +54,22 @@ export class ChatClient {
         try {
             // Fetch latest health metrics for context
             const metrics = await ultrahumanClient.getTodaySummary();
-            const systemPrompt = this.buildSystemPrompt(metrics);
+
+            // Connect to MCP and get tools
+            let toolsInfo = '';
+            try {
+                await mcpClient.connect();
+                const tools = await mcpClient.listTools();
+                if (tools && tools.tools && tools.tools.length > 0) {
+                    toolsInfo = '\n\n**Available Tools:**\n' + tools.tools.map(t =>
+                        `- ${t.name}: ${t.description} (Schema: ${JSON.stringify(t.inputSchema)})`
+                    ).join('\n');
+                }
+            } catch (error) {
+                logger.warn('ChatClient', 'Failed to fetch MCP tools', error);
+            }
+
+            const systemPrompt = this.buildSystemPrompt(metrics) + toolsInfo;
 
             if (this.provider === 'openai') {
                 return await this.sendOpenAIMessage(systemPrompt, userMessage, conversationHistory);
