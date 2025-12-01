@@ -36,7 +36,7 @@ export function Activity() {
 
     return (
         <Container size="xl" py="xl">
-            <Stack spacing="xl">
+            <Stack gap="xl">
                 <Title order={1}>Activity Tracking</Title>
 
                 <Text color="dimmed">
@@ -51,7 +51,7 @@ export function Activity() {
                     height={350}
                 />
 
-                <Stack spacing="md">
+                <Stack gap="md">
                     <Title order={3}>Activity Tips</Title>
                     <Text size="sm" color="dimmed">
                         • Aim for 8,000-10,000 steps per day

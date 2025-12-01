@@ -1,107 +1,92 @@
-import { MantineThemeOverride } from '@mantine/core';
+import { MantineThemeOverride, MantineTheme } from '@mantine/core';
 
 /**
  * Custom Mantine theme with dark slate aesthetic and gradient accents
  */
 export const theme: MantineThemeOverride = {
-    colorScheme: 'dark',
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Lato, sans-serif',
     fontFamilyMonospace: 'Monaco, Courier, monospace',
     headings: {
-        fontFamily: 'Outfit, sans-serif',
-        fontWeight: 600,
+        fontFamily: 'Lato, sans-serif',
+        fontWeight: '700',
     },
 
     colors: {
-        // Deep Midnight Blue background palette
+        // Flat UI Midnight Blue / Wet Asphalt for dark mode backgrounds
         dark: [
-            '#C1C2C5', // 0
-            '#A6A7AB', // 1
-            '#909296', // 2
-            '#5c5f66', // 3
-            '#373A40', // 4
-            '#2C2E33', // 5
-            '#25262b', // 6
-            '#151F32', // 7 - Card background (lighter blue-grey)
-            '#0B1120', // 8 - Main background (deep blue-black)
-            '#080C16', // 9
+            '#ecf0f1', // 0 - Clouds
+            '#bdc3c7', // 1 - Silver
+            '#95a5a6', // 2 - Concrete
+            '#7f8c8d', // 3 - Asbestos
+            '#34495e', // 4 - Wet Asphalt
+            '#2c3e50', // 5 - Midnight Blue (Primary Background)
+            '#22313f', // 6
+            '#1a252f', // 7
+            '#131b22', // 8
+            '#0d1217', // 9
         ],
-        // Electric Cyan/Blue primary palette
+        // Flat UI Turquoise / Green for primary
         primary: [
-            '#E0F7FA', // 0
-            '#B2EBF2', // 1
-            '#80DEEA', // 2
-            '#4DD0E1', // 3
-            '#26C6DA', // 4
-            '#00BCD4', // 5 - Cyan
-            '#00ACC1', // 6
-            '#0097A7', // 7
-            '#00838F', // 8
-            '#006064', // 9
+            '#d1f2eb', // 0
+            '#a3e4d7', // 1
+            '#76d7c4', // 2
+            '#48c9b0', // 3
+            '#1abc9c', // 4 - Turquoise
+            '#16a085', // 5 - Green Sea
+            '#117a65', // 6
+            '#0e6655', // 7
+            '#0b5345', // 8
+            '#083e34', // 9
         ],
     },
 
     primaryColor: 'primary',
-    primaryShade: 5,
-    defaultRadius: 'md',
+    primaryShade: 4,
+    defaultRadius: 'sm', // Flatter look
 
     components: {
         Card: {
             defaultProps: {
-                radius: 'lg',
+                radius: 'sm',
+                withBorder: false,
             },
-            styles: () => ({
+            styles: (theme: MantineTheme) => ({
                 root: {
-                    backgroundColor: 'rgba(21, 31, 50, 0.7)', // Glassmorphism base
-                    backdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(6, 182, 212, 0.1)', // Glow effect
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                    },
+                    backgroundColor: theme.colors.dark[4], // Wet Asphalt
+                    color: theme.colors.dark[0], // Clouds
+                    boxShadow: 'none',
+                    border: 'none',
                 },
             }),
         },
         Button: {
             defaultProps: {
-                radius: 'xl', // Pill shape
+                radius: 'sm',
                 size: 'md',
             },
-            styles: () => ({
+            styles: (theme: MantineTheme) => ({
                 root: {
-                    fontWeight: 600,
-                    transition: 'all 0.2s ease',
+                    fontWeight: 700,
+                    transition: 'background-color 0.2s ease',
                     '&:hover': {
-                        transform: 'translateY(-1px)',
-                        boxShadow: '0 4px 12px rgba(6, 182, 212, 0.3)', // Primary glow
+                        backgroundColor: theme.colors.primary[5], // Green Sea on hover
                     },
                 },
             }),
         },
         Paper: {
-            styles: () => ({
+            styles: (theme: MantineTheme) => ({
                 root: {
-                    backgroundColor: 'rgba(21, 31, 50, 0.7)',
-                    backdropFilter: 'blur(12px)',
+                    backgroundColor: theme.colors.dark[4], // Wet Asphalt
                 },
             }),
         },
         ThemeIcon: {
             defaultProps: {
-                radius: 'lg',
+                radius: 'sm',
             },
         },
     },
 
-    globalStyles: () => ({
-        body: {
-            backgroundColor: '#0B1120', // Deep midnight blue
-            color: '#F8FAFC', // High contrast text
-            backgroundImage: 'radial-gradient(circle at 50% 0%, #172a45 0%, #0B1120 100%)', // Subtle top glow
-            minHeight: '100vh',
-        },
-    }),
+
 };

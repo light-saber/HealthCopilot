@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Container, Stack, Title, Text, Loader, Grid } from '@mantine/core';
+import { Container, Stack, Title, Text, Loader } from '@mantine/core';
 import { healthApi } from '../services/api';
 import { TrendChart } from '../components/TrendChart';
-import { MetricCard } from '../components/MetricCard';
+
 
 export function Recovery() {
     const [data, setData] = useState<any>(null);
@@ -37,7 +37,7 @@ export function Recovery() {
 
     return (
         <Container size="xl" py="xl">
-            <Stack spacing="xl">
+            <Stack gap="xl">
                 <Title order={1}>Recovery Metrics</Title>
 
                 <Text color="dimmed">
@@ -51,7 +51,7 @@ export function Recovery() {
                     height={350}
                 />
 
-                <Stack spacing="md">
+                <Stack gap="md">
                     <Title order={3}>Recovery Tips</Title>
                     <Text size="sm" color="dimmed">
                         • Higher HRV indicates better recovery

@@ -246,3 +246,8 @@ For issues with:
 ---
 
 Built with ❤️ using **Antigravity** by **[Sachin Acharya](https://www.linkedin.com/in/acharyasachin/)**
+
+## Acknowledgements
+
+- Design system inspired by **[Flat-UI](https://github.com/designmodo/Flat-UI)** by Designmodo.
+

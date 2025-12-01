@@ -36,8 +36,8 @@ export function ActionCard({ action, status = 'none', onStatusChange }: ActionCa
 
     return (
         <Card padding="lg" radius="md">
-            <Stack spacing="sm">
-                <Group position="apart">
+            <Stack gap="sm">
+                <Group justify="space-between">
                     <Badge color={categoryColors[action.category] || 'gray'} variant="light">
                         {action.category}
                     </Badge>
@@ -46,7 +46,7 @@ export function ActionCard({ action, status = 'none', onStatusChange }: ActionCa
                     </Badge>
                 </Group>
 
-                <Text size="lg" weight={600}>
+                <Text size="lg" fw={600}>
                     {action.title}
                 </Text>
 
@@ -58,15 +58,15 @@ export function ActionCard({ action, status = 'none', onStatusChange }: ActionCa
                     variant="subtle"
                     size="xs"
                     onClick={() => setExpanded(!expanded)}
-                    rightIcon={expanded ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
+                    rightSection={expanded ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
                 >
                     {expanded ? 'Hide details' : 'Show details'}
                 </Button>
 
                 <Collapse in={expanded}>
-                    <Stack spacing="sm" mt="sm">
+                    <Stack gap="sm" mt="sm">
                         <div>
-                            <Text size="sm" weight={500} mb={4}>
+                            <Text size="sm" fw={500} mb={4}>
                                 Evidence Summary
                             </Text>
                             <Text size="sm" color="dimmed">
@@ -76,10 +76,10 @@ export function ActionCard({ action, status = 'none', onStatusChange }: ActionCa
 
                         {action.evidenceSources.length > 0 && (
                             <div>
-                                <Text size="sm" weight={500} mb={4}>
+                                <Text size="sm" fw={500} mb={4}>
                                     Sources
                                 </Text>
-                                <Stack spacing={4}>
+                                <Stack gap={4}>
                                     {action.evidenceSources.map((source, idx) => (
                                         <Anchor
                                             key={idx}
@@ -98,7 +98,7 @@ export function ActionCard({ action, status = 'none', onStatusChange }: ActionCa
                 </Collapse>
 
                 {onStatusChange && (
-                    <Group spacing="xs" mt="sm">
+                    <Group gap="xs" mt="sm">
                         <Button
                             size="xs"
                             variant={status === 'planned' ? 'filled' : 'light'}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Stack, Title, Text, Loader } from '@mantine/core';
 import { healthApi } from '../services/api';
 import { TrendChart } from '../components/TrendChart';
-import { MetricCard } from '../components/MetricCard';
+
 
 export function Sleep() {
     const [data, setData] = useState<any>(null);
@@ -37,7 +37,7 @@ export function Sleep() {
 
     return (
         <Container size="xl" py="xl">
-            <Stack spacing="xl">
+            <Stack gap="xl">
                 <Title order={1}>Sleep Analysis</Title>
 
                 <Text color="dimmed">
@@ -51,7 +51,7 @@ export function Sleep() {
                     height={350}
                 />
 
-                <Stack spacing="md">
+                <Stack gap="md">
                     <Title order={3}>Sleep Tips</Title>
                     <Text size="sm" color="dimmed">
                         • Aim for 7-9 hours of sleep per night

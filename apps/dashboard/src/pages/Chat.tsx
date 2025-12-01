@@ -118,8 +118,8 @@ export function Chat() {
 
     return (
         <Container size="xl" py="xl">
-            <Stack spacing="md" style={{ height: 'calc(100vh - 200px)' }}>
-                <Group position="apart">
+            <Stack gap="md" style={{ height: 'calc(100vh - 200px)' }}>
+                <Group justify="space-between">
                     <div>
                         <Title order={1}>Health Chat</Title>
                         <Text size="sm" color="dimmed">
@@ -133,14 +133,14 @@ export function Chat() {
 
                 {messages.length === 0 && (
                     <Paper p="md" withBorder>
-                        <Stack spacing="sm">
+                        <Stack gap="sm">
                             <Text size="sm" color="dimmed">
                                 💡 I have access to your current health data. Ask me anything about your metrics!
                             </Text>
-                            <Text size="xs" weight={500} color="dimmed">
+                            <Text size="xs" fw={500} color="dimmed">
                                 Suggested questions:
                             </Text>
-                            <Group spacing="xs">
+                            <Group gap="xs">
                                 {suggestedQuestions.map((q, idx) => (
                                     <Badge
                                         key={idx}
@@ -157,7 +157,7 @@ export function Chat() {
                 )}
 
                 <ScrollArea style={{ flex: 1 }} viewportRef={viewport}>
-                    <Stack spacing="md">
+                    <Stack gap="md">
                         {messages.map((msg, idx) => (
                             <Paper
                                 key={idx}
@@ -170,13 +170,13 @@ export function Chat() {
                                     maxWidth: '80%',
                                 }}
                             >
-                                <Group spacing="xs" mb="xs">
+                                <Group gap="xs" mb="xs">
                                     {msg.role === 'user' ? (
                                         <IconUser size={16} />
                                     ) : (
                                         <IconRobot size={16} />
                                     )}
-                                    <Text size="xs" weight={500}>
+                                    <Text size="xs" fw={500}>
                                         {msg.role === 'user' ? 'You' : 'AI Assistant'}
                                     </Text>
                                 </Group>
@@ -187,7 +187,7 @@ export function Chat() {
                         ))}
                         {loading && (
                             <Paper p="md" withBorder style={{ backgroundColor: '#25262b', maxWidth: '80%' }}>
-                                <Group spacing="xs">
+                                <Group gap="xs">
                                     <Loader size="xs" />
                                     <Text size="sm" color="dimmed">
                                         AI is thinking...
@@ -204,7 +204,7 @@ export function Chat() {
                     </Alert>
                 )}
 
-                <Group spacing="xs">
+                <Group gap="xs">
                     <TextInput
                         placeholder="Ask about your health data..."
                         value={input}
@@ -213,7 +213,7 @@ export function Chat() {
                         style={{ flex: 1 }}
                         disabled={loading}
                     />
-                    <Button onClick={sendMessage} loading={loading} leftIcon={<IconSend size={16} />}>
+                    <Button onClick={sendMessage} loading={loading} leftSection={<IconSend size={16} />}>
                         Send
                     </Button>
                 </Group>
